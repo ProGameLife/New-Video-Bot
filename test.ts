@@ -30,7 +30,7 @@ client.on('ready', async () => {
 })
 
 client.login(process.env.BOT_TOKEN);
-
+//axios
 //prisma.channel,fineMany = select
 //colum
 //:client: id408425398661-lr0p2jsa15t4f2itkefrlpbhihheci4d.apps.googleusercontent.com 
