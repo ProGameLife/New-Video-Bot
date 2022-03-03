@@ -1,0 +1,15 @@
+{
+    "compilerOptions": {
+        "target": "ESNext",
+        "module": "CommonJS",
+        "skipLibCheck": true, // 라이브러리 type체크를 건너뜀
+        "alwaysStrict": true, // type체크에 대해 엄격하게 체크를함 any같은거 엄격하게 통제
+        "allowSyntheticDefaultImports": true,
+        "esModuleInterop": true,
+        "outDir": "dist",
+        "strict": true
+    },
+    "include": [
+        "*.ts"
+      ]
+}
