@@ -10,12 +10,18 @@ datasource db {
 model channel {
   id           Int     @id @default(autoincrement())
   d_server_id  String? @db.VarChar(32)
-  youtube_id   String  @db.VarChar(64)
-  youtube_name String  @db.VarChar(32)
+  youtube_id   String  @unique @db.VarChar(64)
+  youtube_name String  @unique @db.VarChar(32)
   d_channel_id String? @db.VarChar(32)
 }
 
 model url {
   channel_id String   @id @db.VarChar(64)
   watch_id   String[] @db.VarChar(64)
+}
+
+model chat_channel {
+  chat_id        String @id @db.VarChar(64)
+  chat_name      String @db.VarChar(64)
+  any_channel_yn String @default("N") @db.VarChar(4)
 }
