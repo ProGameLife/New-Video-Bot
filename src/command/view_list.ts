@@ -1,6 +1,6 @@
 import { Prisma, PrismaClient } from "@prisma/client";
 import { Message, MessageEmbed } from "discord.js";
-import { select_all } from "../sql/select"
+import { get_all_channel } from "../sql/select"
 
 export const view_list_command = async (
     message: Message<boolean>, 
@@ -9,7 +9,7 @@ export const view_list_command = async (
     let tempname = '';
     let tempchannel = '';
 
-    const selectchannel = await select_all(prisma);
+    const selectchannel = await get_all_channel(prisma);
 
     const list_youtube_id = selectchannel!.flatMap((elemnet) => {
         return elemnet.youtube_id ?? ' ' ;
