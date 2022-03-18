@@ -23,14 +23,15 @@ export const make_link = async (client: Client<boolean>, d_channel_id: string[],
                 return domElement.getAttribute("href");
             });
         }));
-    
+        
         if(!hrefLink) continue;
     
         let fullurl = [];
         for(let i = 1; i < 6; i++){
+            if(!hrefLink[i]) break;
             fullurl[i - 1] = STARTLINK + hrefLink[i];
         }
-    
+        
         //신규 채널인지 아닌지 확인 하고 추가 및 url을 보낸것인지 확인
         const urltable = await get_watch_id(youtube_channel_id[k]);
         
@@ -39,17 +40,17 @@ export const make_link = async (client: Client<boolean>, d_channel_id: string[],
         });
     
         let temparr = [];
-        for(let i = 0; i < 5; i++){
+        for(let i = 0; i < fullurl.length; i++){
             fullurl[i] = fullurl[i].replace('shorts/','watch?v=');
             if(!(urltable_watch_id.includes(fullurl[i]))){
                 await channel.send(fullurl[i]);
             }
             temparr.push(fullurl[i]);
         }
-        console.log(temparr);
+        console.log(fullurl);
     
-        return await upsert_watch_url(youtube_channel_id[k], temparr, fullurl);
+        await upsert_watch_url(youtube_channel_id[k], temparr, fullurl);
         //end
     }
-}
+};
 

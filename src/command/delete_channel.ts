@@ -31,6 +31,7 @@ export const delete_channel_name = async (
         delete_stat.add = true;
         delete_stat.step = 0;
         message.reply(delete_messages[delete_stat.step]);
+        return;
     }
 
     if(!delete_stat.add){
@@ -45,9 +46,9 @@ export const delete_channel_name = async (
     
     switch(delete_stat.step){
         case 0:
-            if(!filter_name(message)){
-                
+            if(filter_name(message)){
                 delete_stat.youtube_name = message.content;
+                console.log(delete_stat.youtube_name);
                 const check_chat_channel = await get_yname(delete_stat.youtube_name);
                 
                 if(check_chat_channel.length === 0 && TEXTREGEX.test(delete_stat.youtube_name)){
@@ -68,17 +69,17 @@ export const delete_channel_name = async (
 
             if(delete_stat.delete_flag === 'Y'){
                 const select_chat_channel = await get_yname(delete_stat.youtube_name);
-
+                
                 let delete_channel = (select_chat_channel!).map((element) => {
                     return element.d_channel_id ?? ' ';   
                 });
-                
                 delete_channel[0] = delete_channel[0].replace(CHANNELREGEX, '');
+                
                 delete_channel_check = '<#' + delete_channel[0] + '>';
 
-                    let count_delete_channel = (await get_dchat(delete_channel_check)).map((element) => {
-                        return element.d_channel_id ?? ' ';
-                    })
+                let count_delete_channel = (await get_dchat(delete_channel_check)).map((element) => {
+                    return element.d_channel_id ?? ' ';
+                })
                 if(count_delete_channel.length === 1){
                     const channel = await client.channels.fetch(delete_channel[0]) as TextChannel;
                     channel.delete();
@@ -90,12 +91,14 @@ export const delete_channel_name = async (
             }
             break;
     }
-
+    
+    
     if(delete_stat.step === 0){
         message.reply(delete_stat.youtube_name + ' 채널을 정말 삭제하시겠습니까? 맞으면 "Y" 틀리면 "N" 입력');  
     }else if(delete_stat.step === 1){
         message.reply(delete_messages[delete_stat.step]);
     }
+
     delete_stat.step++;
 
     if(delete_stat.step === 2){
@@ -105,5 +108,6 @@ export const delete_channel_name = async (
             youtube_name: '',
             delete_flag: '',
         }
+        return;
     }
 }

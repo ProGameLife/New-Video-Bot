@@ -99,8 +99,7 @@ export const insert_channel_status = async(
             }
             break;
         case 3:// 생성할 또는 기존 채팅채널 이름 물어보기
-            if(
-                is_same_user(message) && (insert_state.new_chat_flag === 'Y' && message.content.startsWith('<#')) || 
+            if(is_same_user(message) && (insert_state.new_chat_flag === 'Y' && message.content.startsWith('<#')) || 
                                          (insert_state.new_chat_flag === 'N' && TEXTREGEX.test(message.content))){
                 insert_state.chat_channel_id = message.content.replaceAll(/ +/g, ' ');
                 insert_state.chat_channel_id = insert_state.chat_channel_id.replaceAll(' ', '-');

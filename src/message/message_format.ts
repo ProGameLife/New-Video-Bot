@@ -23,7 +23,6 @@ export const REPLY_MESSAGES = [
 export const delete_messages = [
     '⬇⬇⬇⬇⬇삭제할 유튜브의 채널 이름을 입력하시오⬇⬇⬇⬇⬇',
     '채널이 삭제되었습니다.\n!목록 명령어로 확인하십시오',
-    ' ',
 ]
 export const delete_reply_message = [
     '없는 채널을 입력하였거나 틀렸습니다. 다시 입력해주세요',

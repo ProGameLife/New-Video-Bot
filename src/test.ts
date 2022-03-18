@@ -1,13 +1,13 @@
 import "dotenv/config";
 import { Client, Intents, Message } from "discord.js";
-import puppeteer from "puppeteer";
-import cron from "node-cron";
 import { view_list_command } from "./command/view_list";
 import { get_all_channel } from "./sql/select";
 import { insert_channel_status } from "./command/insert_channel";
 import { delete_channel_name } from "./command/delete_channel";
 import { make_link } from "./link_send"
 import { help_guide } from "./command/help"
+import puppeteer from "puppeteer";
+import cron from "node-cron";
 
 const client = new Client({ 
     intents: [
@@ -22,11 +22,9 @@ const CHANNELREGEX = /[^0-9]/g;
 const TEXTREGEX = /^[ㄱ-ㅎ|가-힣|ㅏ-ㅢ|a-z|A-Z|0-9|]+/;
 const LINKREGEX = /\/(channel|user|c)\/[a-zA-z0-9-_ㄱ-ㅎ가-힣\s]+/;
 
-
-
 client.on('ready', async () => {
     console.log('키리 봇 on');
-    cron.schedule('*/3 * * * *', async () => {
+    cron.schedule('*/2 * * * *', async () => {
         let browser;
         let page;
         try{
@@ -45,8 +43,9 @@ client.on('ready', async () => {
             const youtube_channel_id = channel_table!.map((elemnet) => {
                 return elemnet.youtube_id ?? ' ';
             });
+
             //링크 만들어서 뿌려줌
-            await make_link(client, d_channel_id, youtube_channel_id, CHANNELREGEX, page)
+            await make_link(client, d_channel_id, youtube_channel_id, CHANNELREGEX, page);
         }catch(e){
             console.log(e);
         }finally{
