@@ -1,5 +1,4 @@
-import { Message, MessageActionRow } from "discord.js";
-import { prisma, Prisma, PrismaClient } from "@prisma/client";
+import { Message } from "discord.js";
 import { get_yid } from "../sql/select";
 import { create_channel } from "../sql/insert";
 import { check_url } from "../url_check";
@@ -33,7 +32,6 @@ const reset_state = () => {
 };
 
 export const insert_channel_status = async(
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>,
     message: Message<boolean>,
     discord_server_id: string, 
     is_yn: (m: Message) => boolean, 
@@ -74,7 +72,7 @@ export const insert_channel_status = async(
             }
 
             insert_state.youtube_link = message.content;
-            const youtube_id = await get_yid(prisma, insert_state.youtube_link);
+            const youtube_id = await get_yid(insert_state.youtube_link);
 
             const page_status = await check_url(insert_state.youtube_link);
 
@@ -133,7 +131,7 @@ export const insert_channel_status = async(
                     d_channel_id: insert_state.chat_channel_id,
                 };
 
-                await create_channel(prisma, create_channel_format);
+                await create_channel(create_channel_format);
 
             }else if(is_yn(message) && message.content === 'N'){
                 message.reply(REPLY_MESSAGES[insert_state.step] as string);

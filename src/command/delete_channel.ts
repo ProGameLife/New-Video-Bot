@@ -1,5 +1,4 @@
 import { Client, Message, TextChannel } from "discord.js"
-import { Prisma, PrismaClient } from "@prisma/client";
 import { get_dchat, get_yname } from "../sql/select"
 import { delete_channel_sql } from "../sql/delete"
 import { delete_messages, delete_reply_message } from "../message/message_format"
@@ -21,7 +20,6 @@ const reset_state = () => {
 };
 
 export const delete_channel_name = async (
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>,
     filter_name: (m: Message) => boolean,
     filter_check: (m: Message) => boolean,
     message: Message<boolean>,
@@ -50,7 +48,7 @@ export const delete_channel_name = async (
             if(!filter_name(message)){
                 
                 delete_stat.youtube_name = message.content;
-                const check_chat_channel = await get_yname(prisma, delete_stat.youtube_name);
+                const check_chat_channel = await get_yname(delete_stat.youtube_name);
                 
                 if(check_chat_channel.length === 0 && TEXTREGEX.test(delete_stat.youtube_name)){
                     message.reply(delete_reply_message[delete_stat.step] as string);
@@ -69,7 +67,7 @@ export const delete_channel_name = async (
             delete_stat.delete_flag = message.content;
 
             if(delete_stat.delete_flag === 'Y'){
-                const select_chat_channel = await get_yname(prisma, delete_stat.youtube_name);
+                const select_chat_channel = await get_yname(delete_stat.youtube_name);
 
                 let delete_channel = (select_chat_channel!).map((element) => {
                     return element.d_channel_id ?? ' ';   
@@ -78,14 +76,14 @@ export const delete_channel_name = async (
                 delete_channel[0] = delete_channel[0].replace(CHANNELREGEX, '');
                 delete_channel_check = '<#' + delete_channel[0] + '>';
 
-                    let count_delete_channel = (await get_dchat(prisma, delete_channel_check)).map((element) => {
+                    let count_delete_channel = (await get_dchat(delete_channel_check)).map((element) => {
                         return element.d_channel_id ?? ' ';
                     })
                 if(count_delete_channel.length === 1){
                     const channel = await client.channels.fetch(delete_channel[0]) as TextChannel;
                     channel.delete();
                 }
-                await delete_channel_sql(prisma, delete_stat.youtube_name);
+                await delete_channel_sql(delete_stat.youtube_name);
             }else{
                 message.reply(delete_reply_message[delete_stat.step][0]);
                 delete_stat.step++;

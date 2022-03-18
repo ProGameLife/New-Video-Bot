@@ -1,7 +1,8 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
-export const get_all_channel = (
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined> ) => {
+const prisma = new PrismaClient();
+
+export const get_all_channel = () => {
     return prisma.channel.findMany({
         select: { 
             d_channel_id: true,
@@ -10,8 +11,7 @@ export const get_all_channel = (
         },
     });
 };
-export const get_yid = (
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, yid: string ) => {
+export const get_yid = ( yid: string ) => {
     return prisma.channel.findMany({
         select: { 
             d_channel_id: true,
@@ -23,8 +23,7 @@ export const get_yid = (
         },
     });
 };
-export const get_yname = (
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, yname: string ) => {
+export const get_yname = ( yname: string ) => {
     return prisma.channel.findMany({
         select: { 
             d_channel_id: true,
@@ -36,8 +35,7 @@ export const get_yname = (
         },
     });
 };
-export const get_dchat = (
-    prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, dchat: string ) => {
+export const get_dchat = ( dchat: string ) => {
     return prisma.channel.findMany({
         select: { 
             d_channel_id: true,
@@ -50,8 +48,7 @@ export const get_dchat = (
     });
 };
 
-export const get_watch_id = (prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>,
-     youid: string) => {
+export const get_watch_id = ( youid: string ) => {
         return prisma.url.findMany({
             select: {
                 watch_id: true,

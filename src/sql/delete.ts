@@ -1,6 +1,7 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-export const delete_channel_sql = (prisma: PrismaClient<Prisma.PrismaClientOptions, never, Prisma.RejectOnNotFound | Prisma.RejectPerOperation | undefined>, yname: string) => {
+export const delete_channel_sql = ( yname: string ) => {
     return prisma.channel.delete({
         where: { youtube_name: yname }
     })
