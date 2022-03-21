@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "tsc": "tsc",
+    "tsc": "./node_modules/typescript/bin/tsc",
     "prestart": "npm run build",
     "postinstall": "npm run tsc",
     "start": "node dist/test.js",
