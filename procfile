@@ -1,1 +1,1 @@
-web: npm run ts-node ./src/test.ts
+worker: npm run ts-node ./src/test.ts
