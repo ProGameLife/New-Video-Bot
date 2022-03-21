@@ -4,8 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "tsc": "./node_modules/typescript/bin/tsc",
-    "build": "tsc",
+    "build": "./node_modules/typescript/bin/tsc",
     "prestart": "npm run build",
     "start": "node dist/test.js",
     "ts-node": "ts-node"
