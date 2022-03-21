@@ -27,7 +27,7 @@ export const make_link = async (client: Client<boolean>, d_channel_id: string[],
         if(!hrefLink) continue;
     
         let fullurl = [];
-        for(let i = 1; i < 6; i++){
+        for(let i = 1; i < 11; i++){
             if(!hrefLink[i]) break;
             fullurl[i - 1] = STARTLINK + hrefLink[i];
         }
@@ -38,11 +38,11 @@ export const make_link = async (client: Client<boolean>, d_channel_id: string[],
         let urltable_watch_id = urltable.flatMap((elemnet) => {
             return elemnet.watch_id
         });
-    
+        
         let temparr = [];
         for(let i = 0; i < fullurl.length; i++){
             fullurl[i] = fullurl[i].replace('shorts/','watch?v=');
-            if(!(urltable_watch_id.includes(fullurl[i]))){
+            if(!(urltable_watch_id.includes(fullurl[i])) && i < 5){
                 await channel.send(fullurl[i]);
             }
             temparr.push(fullurl[i]);
