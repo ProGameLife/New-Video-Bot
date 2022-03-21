@@ -53,4 +53,3 @@ export const make_link = async (client: Client<boolean>, d_channel_id: string[],
         //end
     }
 };
-
