@@ -4,10 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
     "tsc": "./node_modules/typescript/bin/tsc",
+    "build": "tsc",
     "prestart": "npm run build",
-    "postinstall": "npm run tsc",
     "start": "node dist/test.js",
     "ts-node": "ts-node"
   },
