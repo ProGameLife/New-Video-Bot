@@ -57,7 +57,6 @@ client.on('ready', async () => {
 
 client.on('message', async (message) => {
         if(message.channel.type == 'DM' || message.author.bot) return
-
         const is_same_user = (m: Message) => m.author.id == message.author.id;
         const is_yn = (m: Message) => m.author.id == message.author.id && 
                                             (m.content.startsWith('Y') || m.content.startsWith('N'));
